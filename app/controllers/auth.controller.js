@@ -10,11 +10,24 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const nodemailer = require('nodemailer');
 const otpGenerator = require('otp-generator');
+const validator = require('validator');
+
 
 
 
 exports.signup = (req, res) => {
     console.log("signup called");
+
+    if (!validator.isEmail(req.body.email)) {
+        return res.status(400).send({ message: "Invalid email address" });
+    }
+
+    if (req.body.password.length < 8) {
+        return res.status(400).send({ message: "Password must be at least 8 characters" });
+    }
+    // if (!validator.isStrongPassword(req.body.password)) {
+    //     return res.status(400).send({ message: "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number and one special character" });
+    // }
 
     const user = new User({
         name: req.body.name,
@@ -42,18 +55,18 @@ exports.signup = (req, res) => {
                                         email: req.body.email,
                                     });
                                     await newProfile.save();
-                                    res.send({ message: "User was registered successfully!" });
+                                    return res.send({ message: "User was registered successfully!" });
                                 }else {
-                                    res.send({ message: "Profile already exists!" });
+                                    return res.send({ message: "Profile already exists!" });
                                 }
 
                             })
                             .catch((err) => {
-                                res.status(500).send({ message: err });
+                                return res.status(500).send({ message: err });
                             });
                     })
                     .catch((err) => {
-                        res.status(500).send({ message: err });
+                        return res.status(500).send({ message: err });
                     });
             } else {
                 Role.findOne({ name: "user" })
@@ -69,33 +82,42 @@ exports.signup = (req, res) => {
                                         email: req.body.email,
                                     });
                                     await newProfile.save();
-                                    res.send({ message: "User was registered successfully!" });
+                                    return res.send({ message: "User was registered successfully!" });
                                 }else {
-                                    res.send({ message: "Profile already exists!" });
+                                    return res.send({ message: "Profile already exists!" });
                                 }
-
-
-
-
 
                             })
                             .catch((err) => {
-                                res.status(500).send({ message: err });
+                                return res.status(500).send({ message: err });
                             });
                     })
                     .catch((err) => {
-                        res.status(500).send({ message: err });
+                        return res.status(500).send({ message: err });
                     });
             }
         })
         .catch((err) => {
-            res.status(500).send({ message: err });
+            return res.status(500).send({ message: err });
         });
 };
+
+
+
 
 exports.signin = (req, res) => {
 
     console.log("login called");
+
+    // validate email
+    if (!validator.isEmail(req.body.email)) {
+        return res.status(400).send({ message: "Invalid email address" });
+    }
+
+    // validate password
+    if (req.body.password.length < 8) {
+        return res.status(400).send({ message: "Password must be at least 8 characters" });
+    }
 
     User.findOne({
         email: req.body.email,
@@ -142,6 +164,7 @@ exports.signin = (req, res) => {
         res.status(500).send({ message: err });
     })
 };
+
 
 exports.signout = async (req, res) => {
     try {
@@ -318,6 +341,13 @@ exports.verifyOtp = async (req, res) => {
 
 exports.resetPassword = async (req, res) => {
     console.log("reset password called");
+
+    if (req.body.password.length < 8) {
+        return res.status(400).send({ message: "Password must be at least 8 characters" });
+    }
+    // if (!validator.isStrongPassword(req.body.password)) {
+    //     return res.status(400).send({ message: "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number and one special character" });
+    // }
 
     const { email, password } = req.body;
 
