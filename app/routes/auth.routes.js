@@ -48,3 +48,4 @@ module.exports = function(app) {
 
     app.post('/api/upload-image', upload.single('image'), controller.uploadImage);
 };
+

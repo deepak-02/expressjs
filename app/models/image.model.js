@@ -9,7 +9,6 @@ const Image = mongoose.model(
             data: Buffer,
             contentType: String
         }
-
     })
 );
 

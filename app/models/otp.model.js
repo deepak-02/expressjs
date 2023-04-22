@@ -9,3 +9,4 @@ const Otp = mongoose.model(
 );
 
 module.exports = Otp;
+

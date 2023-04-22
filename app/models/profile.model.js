@@ -12,3 +12,4 @@ const Profile = mongoose.model(
 );
 
 module.exports = Profile;
+
