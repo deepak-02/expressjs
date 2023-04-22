@@ -28,7 +28,7 @@ const db = require("./app/models");
 const Role = db.role;
 
 db.mongoose
-    .connect(`mongodb://0.0.0.0:27017/new-login`, {
+    .connect(`mongodb://mongo:dYyr6LcPDr2aOojksjfo@containers-us-west-75.railway.app:5520`, {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
