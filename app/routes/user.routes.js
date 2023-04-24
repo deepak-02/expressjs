@@ -2,11 +2,18 @@ const { authJwt } = require("../middlewares");
 const controller = require("../controllers/user.controller");
 
 module.exports = function(app) {
+    // app.use(function(req, res, next) {
+    //     res.header(
+    //         "Access-Control-Allow-Headers",
+    //         "Origin, Content-Type, Accept"
+    //     );
+    //     next();
+    // });
     app.use(function(req, res, next) {
-        res.header(
-            "Access-Control-Allow-Headers",
-            "Origin, Content-Type, Accept"
-        );
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+        res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+        res.setHeader('Access-Control-Allow-Credentials', true);
         next();
     });
 
