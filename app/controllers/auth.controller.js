@@ -26,9 +26,6 @@ exports.signup = (req, res) => {
     if (req.body.password.length < 8) {
         return res.status(400).send({ message: "Password must be at least 8 characters" });
     }
-    // if (!validator.isStrongPassword(req.body.password)) {
-    //     return res.status(400).send({ message: "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number and one special character" });
-    // }
 
     const user = new User({
         name: req.body.name,
@@ -37,7 +34,7 @@ exports.signup = (req, res) => {
     });
 
     user.save()
-        .then((user) => {
+        .then(async (user) => {
             if (req.body.roles) {
                 Role.find(
                     {
@@ -48,19 +45,17 @@ exports.signup = (req, res) => {
                         user.roles = roles.map((role) => role._id);
                         user.save()
                             .then(async () => {
-
                                 const existingProfile = await Profile.findOne({ email: req.body.email });
-                                if (!existingProfile){
+                                if (existingProfile) {
+                                    return res.status(400).send({ message: "User already exists!" });
+                                } else {
                                     const newProfile = new Profile({
                                         name: req.body.name,
                                         email: req.body.email,
                                     });
                                     await newProfile.save();
                                     return res.send({ message: "User was registered successfully!" });
-                                }else {
-                                    return res.send({ message: "Profile already exists!" });
                                 }
-
                             })
                             .catch((err) => {
                                 return res.status(500).send({ message: err });
@@ -75,19 +70,17 @@ exports.signup = (req, res) => {
                         user.roles = [role._id];
                         user.save()
                             .then(async () => {
-
                                 const existingProfile = await Profile.findOne({ email: req.body.email });
-                                if (!existingProfile){
+                                if (existingProfile) {
+                                    return res.status(400).send({ message: "User already exists!" });
+                                } else {
                                     const newProfile = new Profile({
                                         name: req.body.name,
                                         email: req.body.email,
                                     });
                                     await newProfile.save();
                                     return res.send({ message: "User was registered successfully!" });
-                                }else {
-                                    return res.send({ message: "Profile already exists!" });
                                 }
-
                             })
                             .catch((err) => {
                                 return res.status(500).send({ message: err });
