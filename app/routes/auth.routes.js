@@ -36,7 +36,7 @@ module.exports = function(app) {
 
     // configure multer for handling file uploads
     const upload = multer({
-        limits: { fileSize: 5000000 }, // limit file size to 1MB
+        limits: { fileSize: 10000000 }, // limit file size to 10MB
         fileFilter: (req, file, cb) => {
             if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
                 return cb(new Error('Only image files are allowed!'));
