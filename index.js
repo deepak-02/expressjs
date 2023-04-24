@@ -27,8 +27,9 @@ app.use(
 const db = require("./app/models");
 const Role = db.role;
 
+//mongosh "mongodb://mongo:2MEztr1AYzClTgXfM6Yx@containers-us-west-176.railway.app:5791"
 db.mongoose
-    .connect(`mongodb://0.0.0.0:27017/new-login`, {
+    .connect(`mongodb://mongo:2MEztr1AYzClTgXfM6Yx@containers-us-west-176.railway.app:5791`, {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
