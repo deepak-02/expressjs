@@ -7,7 +7,7 @@ const Profile = mongoose.model(
         email: String,
         phone: String,
         address: String,
-
+        gender: String
     })
 );
 
