@@ -47,5 +47,7 @@ module.exports = function(app) {
 
 
     app.post('/api/upload-image', upload.single('image'), controller.uploadImage);
+    
+   app.post("/api/remove-image", controller.removeImage);
 };
 
