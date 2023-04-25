@@ -23,9 +23,9 @@ exports.signup = (req, res) => {
         return res.status(400).send({ message: "Invalid email address" });
     }
 
-    if (req.body.password.length < 8) {
-        return res.status(400).send({ message: "Password must be at least 8 characters" });
-    }
+//     if (req.body.password.length < 8) {
+//         return res.status(400).send({ message: "Password must be at least 8 characters" });
+//     }
 
     const user = new User({
         name: req.body.name,
@@ -109,9 +109,9 @@ exports.signin = (req, res) => {
     }
 
     // validate password
-    if (req.body.password.length < 8) {
-        return res.status(400).send({ message: "Password must be at least 8 characters" });
-    }
+//     if (req.body.password.length < 8) {
+//         return res.status(400).send({ message: "Password must be at least 8 characters" });
+//     }
 
     User.findOne({
         email: req.body.email,
@@ -336,9 +336,11 @@ exports.verifyOtp = async (req, res) => {
 exports.resetPassword = async (req, res) => {
     console.log("reset password called");
 
-    if (req.body.password.length < 8) {
-        return res.status(400).send({ message: "Password must be at least 8 characters" });
-    }
+//     if (req.body.password.length < 8) {
+//         return res.status(400).send({ message: "Password must be at least 8 characters" });
+//     }
+    
+    
     // if (!validator.isStrongPassword(req.body.password)) {
     //     return res.status(400).send({ message: "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number and one special character" });
     // }
