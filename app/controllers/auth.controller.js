@@ -238,7 +238,7 @@ exports.getOtp = async (req, res) => {
 
     console.log("get otp called");
 
-    const _otp = otpGenerator.generate(6, {digits: true, lowerCaseAlphabets: false , upperCaseAlphabets: false, specialChars: false });
+    const _otp = otpGenerator.generate(4, {digits: true, lowerCaseAlphabets: false , upperCaseAlphabets: false, specialChars: false });
 
     const otp = new Otp({
         otp: _otp,
