@@ -422,3 +422,24 @@ exports.uploadImage = async (req, res) => {
         res.status(500).send('Failed to upload image!');
     }
 };
+
+exports.removeImage = async (req, res) => {
+    try {
+        // find the existing image for the given email
+        const existingImage = await Image.findOne({ email: req.body.email });
+
+        if (existingImage) {
+
+            await existingImage.deleteOne();
+            res.status(200).send('Image removed successfully!');
+        } else {
+            // if no image exists for the email
+
+            res.status(201).send('No image available!');
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Failed to remove image!');
+    }
+};
+
