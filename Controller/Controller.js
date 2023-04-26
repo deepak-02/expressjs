@@ -129,6 +129,20 @@ return res.status(200).json({message: "Signup successful"})
         console.log(error);
     }
 }
+ 
+ exports.deleteImage=async (req, res) => {
+    const email = req.body.email;
+    const existingUser = await imageModel.findOne({email: email})
+    if (existingUser) {
+    imageModel.deleteOne({email:email})
+        return res.status(200).json({message:"Image deleted"})
+    }
+    else{
+        return res.status(202).json({message:"No image found for the user"})
+    }
+}
+ 
+ 
 
 exports.signin=async (req, res) => {
     const {username, password} = req.body;
