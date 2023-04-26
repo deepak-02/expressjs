@@ -10,7 +10,24 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 // connect to the database
-mongoose.connect("mongodb+srv://akhilnmptf:qJ2Ms92N9MIBTLRs@cluster0.ygch4vp.mongodb.net/?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true });
+// mongoose.connect("mongodb+srv://akhilnmptf:qJ2Ms92N9MIBTLRs@cluster0.ygch4vp.mongodb.net/?retryWrites=true&w=majority", 
+//                  { useNewUrlParser: true, 
+//                   useUnifiedTopology: true }
+//                 );
+mongoose.connect(`mongodb+srv://akhilnmptf:qJ2Ms92N9MIBTLRs@cluster0.ygch4vp.mongodb.net/?retryWrites=true&w=majority`, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    })
+    .then(() => {
+        console.log("Successfully connect to MongoDB.");
+        initial();
+    })
+    .catch(err => {
+        console.error("Connection error", err);
+        process.exit();
+    });
+
+
 
 // use bodyParser middleware to parse incoming requests
 app.use(bodyParser.urlencoded({ extended: true }));
