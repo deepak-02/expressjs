@@ -28,7 +28,7 @@ mongoose.connect(`mongodb+srv://akhilnmptf:qJ2Ms92N9MIBTLRs@cluster0.ygch4vp.mon
     });
 
 app.get("/", (req, res) => {
-    res.json({ message: "Welcome to my application." });
+    res.json({ message: "Welcome to akhil application." });
 });
 
 
