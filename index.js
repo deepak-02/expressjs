@@ -20,7 +20,7 @@ mongoose.connect(`mongodb+srv://akhilnmptf:qJ2Ms92N9MIBTLRs@cluster0.ygch4vp.mon
     })
     .then(() => {
         console.log("Successfully connect to MongoDB.");
-        initial();
+        
     })
     .catch(err => {
         console.error("Connection error", err);
