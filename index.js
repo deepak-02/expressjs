@@ -27,6 +27,9 @@ mongoose.connect(`mongodb+srv://akhilnmptf:qJ2Ms92N9MIBTLRs@cluster0.ygch4vp.mon
         process.exit();
     });
 
+app.get("/", (req, res) => {
+    res.json({ message: "Welcome to my application." });
+});
 
 
 // use bodyParser middleware to parse incoming requests
