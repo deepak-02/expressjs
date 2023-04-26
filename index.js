@@ -63,6 +63,7 @@ app.post("/api/profile/image-get", controller.getImage);
 
 app.post("/api/profile/image", upload.single('file'), controller.uploadImage);
 
+app.post("/api/profile/delete-image", controller.deleteImage);
 // router.post('/upload', upload.single('file'),
 
 // start the server
