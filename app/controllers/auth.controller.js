@@ -223,8 +223,10 @@ exports.getProfile = (req, res) => {
                     },
                 });
             }).catch((err) => {
-                //catch error
-                res.status(500).send({ message: err });
+                res.status(200).send({
+                    profile:profile,
+                    image: null
+                });
             })
 
             // res.status(200).send({
