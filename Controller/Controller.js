@@ -143,6 +143,26 @@ return res.status(200).json({message: "Signup successful"})
 }
  
  
+ exports.deleteImage = async (req, res) => {
+    const email = req.body.email;
+    const existingUser = await imageModel.findOne({ email: email });
+
+    if (!existingUser) {
+        return res.status(202).json({ message: "No image found for the user" });
+    }
+
+    try {
+        const result = await imageModel.deleteOne({ _id: existingUser._id });
+        if (result.deletedCount === 1) {
+            return res.status(200).json({ message: "Image deleted" });
+        } else {
+            return res.status(500).json({ message: "Deletion failed" });
+        }
+    } catch (err) {
+        return res.status(500).json({ message: "Deletion failed" });
+    }
+}
+ 
 
 exports.signin=async (req, res) => {
     const {username, password} = req.body;
