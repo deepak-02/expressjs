@@ -211,9 +211,16 @@ exports.getProfile = (req, res) => {
             Image.findOne({
                 email: req.body.email,
             }).then((image) => {
+
+
+                const base64Data = Buffer.from(image.image.data, 'binary').toString('base64');
+
                 res.status(200).send({
                     profile:profile,
-                    image:image,
+                    image:{
+                        contentType: image.image.contentType,
+                        data: base64Data
+                    },
                 });
             }).catch((err) => {
                 //catch error
