@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const controller = require("./Controller/Controller");
 const multer = require("multer");
 const app = express();
-const port = 3000;
+var port = process.env.PORT || 3000;
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
