@@ -44,7 +44,88 @@ db.mongoose
 
 // simple route
 app.get("/", (req, res) => {
-    res.json({ message: "Welcome to my application." });
+        const message = `
+Welcome to my application.
+
+These are the available APIs and methods in this application:
+
+signup: {
+  endPoint: api/auth/signup,
+  request: {
+    "email": "test@gmail.com",
+    "name": "test",
+    "roles": [
+      "user",
+      "moderator"
+    ],
+    "password": "12345678"
+  }
+}
+
+login: {
+  endPoint: api/auth/signin,
+  request: {
+    "email": "test@gmail.com",
+    "password": "12345678"
+  }
+}
+
+profileUpdate: {
+  endPoint: api/profile/update,
+  request: {
+    "name": "test123",
+    "email": "test@gmail.com",
+    "phone": "12345678",
+    "address": "123asdfg Main St",
+    "gender": "Male"
+  }
+}
+
+profileImage: {
+  endPoint: api/upload-image,
+  request: // as formdata 
+           // fields: email, image
+}
+
+removeImage: {
+  endPoint: api/remove-image,
+  request: {
+    "email": "test@gmail.com"
+  }
+}
+
+getProfile: {
+  endPoint: api/profile/get,
+  request: {
+    "email": "test@gmail.com"
+  }
+}
+
+getOtp: {
+  endPoint: api/get-otp,
+  request: {
+    "email": "test@gmail.com"
+  }
+}
+
+verifyOtp: {
+  endPoint: api/verify-otp,
+  request: {
+    "email": "test@gmail.com",
+    "otp": "1234"
+  }
+}
+
+resetPassword: {
+  endPoint: api/reset-password,
+  request: {
+    "email": "test@gmail.com",
+    "password": "1234568"
+  }
+}
+`;
+
+    res.send(message);
 });
 
 // routes
@@ -75,41 +156,3 @@ async function initial() {
         }
     }
 }
-
-
-// function initial() {
-//
-//     Role.estimatedDocumentCount((err, count) => {
-//         if (!err && count === 0) {
-//             new Role({
-//                 name: "user"
-//             }).save(err => {
-//                 if (err) {
-//                     console.log("error", err);
-//                 }
-//
-//                 console.log("added 'user' to roles collection");
-//             });
-//
-//             new Role({
-//                 name: "moderator"
-//             }).save(err => {
-//                 if (err) {
-//                     console.log("error", err);
-//                 }
-//
-//                 console.log("added 'moderator' to roles collection");
-//             });
-//
-//             new Role({
-//                 name: "admin"
-//             }).save(err => {
-//                 if (err) {
-//                     console.log("error", err);
-//                 }
-//
-//                 console.log("added 'admin' to roles collection");
-//             });
-//         }
-//     });
-// }
