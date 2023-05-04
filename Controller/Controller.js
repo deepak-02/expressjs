@@ -262,7 +262,7 @@ exports.getImage = async (req, res) => {
     if (existingImage) {
         return res.status(200).json(existingImage)
     } else {
-        return res.status(400).json({message: "image not found"});
+        return res.status(202).json({message: "image not found"});
 
     }
 }
