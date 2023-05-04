@@ -91,18 +91,34 @@ exports.mail = (req, res) => {
 
 };
 
-
-
-
 exports.profile =async (req, res) => {
     const {email, firstname,lastname, phone,gender} = req.body;
     const existingProfile=await profileModel.findOne({email:email})
     console.log("body",{email, firstname,lastname, phone,gender}  )
-    await profileModel.findByIdAndUpdate(existingProfile._id,req.body)
+    console.log("existing",existingProfile )
+    if (existingProfile){
+        await profileModel.findByIdAndUpdate(existingProfile._id,req.body)
+        return res.status(200).json({message:"profile updated successfully"})
 
-    // await profileModel.create({email, name, phone,department} );
-    return res.status(200).json({message:"profile saved successfully"})
+    }
+   else {
+        await profileModel.create({email, firstname,lastname, phone,gender} );
+        return res.status(200).json({message:"profile saved successfully"})
+    }
+
+
 };
+
+
+// exports.profile =async (req, res) => {
+//     const {email, firstname,lastname, phone,gender} = req.body;
+//     const existingProfile=await profileModel.findOne({email:email})
+//     console.log("body",{email, firstname,lastname, phone,gender}  )
+//     await profileModel.findByIdAndUpdate(existingProfile._id,req.body)
+
+//     // await profileModel.create({email, name, phone,department} );
+//     return res.status(200).json({message:"profile saved successfully"})
+// };
 
  exports.signup=async (req,res)=>{
     const {username,email,password}=req.body;
