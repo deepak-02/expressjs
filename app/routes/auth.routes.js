@@ -27,6 +27,8 @@ module.exports = function(app) {
     app.post("/api/profile/update", controller.profileUpdate);
 
     app.post("/api/profile/get", controller.getProfile);
+    
+    app.post("/api/profile/get-new", controller.getBase);
 
     app.post("/api/get-otp", controller.getOtp);
 
