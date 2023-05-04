@@ -240,6 +240,53 @@ exports.getProfile = (req, res) => {
     })
 };
 
+
+exports.getBase = (req, res) => {
+
+    console.log("get new profile called");
+
+    Profile.findOne({
+        email: req.body.email,
+    })
+
+        .then((profile) => {
+            //if succeded do this block of code
+            if (!profile) {
+                return res.status(403).send({ message: "User Not found." });
+            }
+
+            Image.findOne({
+                email: req.body.email,
+            }).then((image) => {
+
+
+                //for base64 img , use this
+                const base64Data = Buffer.from(image.image.data, 'binary').toString('base64');
+                const imgSrcString = `data:${image.image.contentType}${base64Data}`;
+
+                res.status(200).send({
+                    profile:profile,
+                    image: {
+                        contentType: image.image.contentType,
+                        data: base64Data
+                    },
+                });
+            }).catch((err) => {
+                console.log("no img");
+                res.status(200).send({
+                    profile:profile,
+                    image: null
+                });
+            })
+
+        }).catch((err) => {
+        //catch error
+        res.status(500).send({ message: err });
+    })
+};
+
+
+
 exports.getOtp = async (req, res) => {
 
     console.log("get otp called");
